@@ -14,11 +14,11 @@ class Solution:
         
         while heap:
             node = heapq.heappop(heap)
-            
-            idx = node[1]
             result.next = node[2]
             result = result.next
+            
             if result.next:
-                heapq.heappush(heap, (result.next.val, idx, result.next))
+                heapq.heappush(heap, (result.next.val, node[1], result.next))
+            
         
         return root.next
