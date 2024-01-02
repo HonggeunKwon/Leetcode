@@ -4,17 +4,17 @@ class Solution:
         volume = 0
         
         for i in range(len(height)):
-            while stack and height[i] > height[stack[-1]]:
+            while stack and height[stack[-1]] < height[i]: # 가장 마지막에 들어온 것 보다 더 높으면,
                 top = stack.pop()
                 
-                if not len(stack):
+                if len(stack) == 0:
                     break
+               
                 distance = i - stack[-1] - 1
-                waters = min(height[i], height[stack[-1]]) - height[top]
+                water = min(height[stack[-1]], height[i]) - height[top]
                 
-                volume += distance * waters
+                volume += distance * water
                 
             stack.append(i)
-        
+            
         return volume
-        
