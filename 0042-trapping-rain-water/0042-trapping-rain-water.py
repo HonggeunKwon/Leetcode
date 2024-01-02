@@ -1,20 +1,21 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        stack = []
-        volume = 0
+        n = len(height)
+        if n == 0:
+            return 0
         
-        for i in range(len(height)):
-            while stack and height[stack[-1]] < height[i]: # 가장 마지막에 들어온 것 보다 더 높으면,
-                top = stack.pop()
-                
-                if len(stack) == 0:
-                    break
-               
-                distance = i - stack[-1] - 1
-                water = min(height[stack[-1]], height[i]) - height[top]
-                
-                volume += distance * water
-                
-            stack.append(i)
-            
-        return volume
+        lmax = [0] * n
+        rmax = [0] * n
+        lmax[0] = height[0]
+        rmax[n - 1] = height[n - 1]
+        
+        for i in range(1, n):
+            lmax[i] = max(lmax[i - 1], height[i])
+        for i in range(n - 2, -1, -1):
+            rmax[i] = max(rmax[i + 1], height[i])
+        
+        ans = 0;
+        
+        for i in range(n):
+            ans += min(rmax[i], lmax[i]) - height[i]
+        return ans
