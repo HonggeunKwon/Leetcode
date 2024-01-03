@@ -10,10 +10,12 @@ class Solution:
     def longestPalindrome(self, s: str) -> str:
         
         str_len = len(s)
-        
+        if str_len < 2 or s == s[::-1]:
+            return s
+            
         for length in range(str_len, 0, -1):
             for start_idx in range(0, str_len - length + 1):
                 if self.isAnagram(s, start_idx, start_idx + length - 1):
-                    return s[start_idx:(start_idx + length)]
+                    return s[start_idx:(start_idx + length)]                
                 
         return ''
