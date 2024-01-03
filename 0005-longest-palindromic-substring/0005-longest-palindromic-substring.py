@@ -15,4 +15,5 @@ class Solution:
             for start_idx in range(0, str_len - length + 1):
                 if self.isAnagram(s, start_idx, start_idx + length - 1):
                     return s[start_idx:(start_idx + length)]
+                
         return ''
