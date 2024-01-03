@@ -5,7 +5,7 @@ class Solution:
         nums_len = len(nums)
         nums.sort()
         
-        for i in range(len(nums) - 2):
+        for i in range(nums_len - 2):
             if i != 0 and nums[i] == nums[i - 1]:
                 continue            
             left, right = i + 1, nums_len - 1
@@ -24,6 +24,7 @@ class Solution:
                         left += 1
                     while left < right and nums[right] == nums[right - 1]:
                         right -= 1
+                        
                     left += 1
                     right -= 1
                 
