@@ -1,17 +1,18 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        def isAnagram(left: int, right: int) -> bool:
-            while left < right:
-                if s[left] != s[right]:
-                    return False
-                left += 1
-                right -= 1
-            return True
-        str_len = len(s)
-            
-        for length in range(str_len, 0, -1):
-            for start_idx in range(0, str_len - length + 1):
-                if isAnagram(start_idx, start_idx + length - 1):
-                    return s[start_idx:(start_idx + length)]                
-                
-        return ''
+        def expand(left: int, right: int) -> str:
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                left -= 1
+                right += 1
+            return s[left+1:right]
+        result = ''
+        
+        if len(s) < 2 or s == s[::-1]:
+            return s
+        
+        for i in range(len(s)):
+            result = max(result,
+                        expand(i, i + 1),
+                        expand(i, i + 2),
+                        key=len)
+        return result
