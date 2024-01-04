@@ -1,7 +1,9 @@
 class Solution:
     def numJewelsInStones(self, jewels: str, stones: str) -> int:
-        freqs = collections.Counter(stones)
-        counts = 0
-        for char in jewels:
-            counts += freqs[char]
-        return counts
+        counter = collections.Counter(stones)
+        answer = 0
+        
+        for jewel in jewels:
+            answer += counter[jewel]
+        
+        return answer
