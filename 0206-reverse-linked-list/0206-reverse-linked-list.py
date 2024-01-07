@@ -11,3 +11,5 @@ class Solution:
             next, node.next = node.next, prev
             prev, node = node, next
         return prev
+            
+        
