@@ -9,14 +9,13 @@ class Solution:
             return None
         
         odd = head
+        even_head = head.next
         even = head.next
-        even_head = even
         
-        while even and even.next:
+        while even and odd.next.next:
             odd.next, even.next = odd.next.next, even.next.next
             odd, even = odd.next, even.next
         
         odd.next = even_head
-        
         return head
         
