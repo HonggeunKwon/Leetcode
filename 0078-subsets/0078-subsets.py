@@ -7,19 +7,18 @@ class Solution:
             if L == nums_len:
                 subset = []
                 for idx, value in enumerate(picked):
-                    if value == 1:
+                    if value:
                         subset.append(nums[idx])
                 
-                answer.append(subset)
-                
+                answer.append(subset)                
                 return
             
-            picked[L] = 1
+            picked[L] = True
             dfs(L + 1, picked)
-            picked[L] = 0
+            picked[L] = False
             dfs(L + 1, picked)
         
-        dfs(0, [0] * nums_len)
+        dfs(0, [False] * nums_len)
         return answer
         
         
