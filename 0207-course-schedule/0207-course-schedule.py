@@ -1,25 +1,26 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adjList = collections.defaultdict(list)
+        ticket_dict = collections.defaultdict(list)
         
-        for a, b in prerequisites:
-            adjList[b].append(a)
-        
-        def cycle(node, tracker, visited):
-            tracker[node] = True
-            visited[node] = True
-            for n in adjList[node]:
-                if n not in visited and cycle(n, tracker, visited):
-                    return True
-                elif n in tracker:
-                    return True
-            tracker.pop(node)            
-            return False
+        for course, pre in prerequisites:
+            ticket_dict[pre].append(course)
         
         visited = {}
-        for n in range(numCourses):
-            tracker = {}
-            if n not in visited and cycle(n, tracker, visited):
-                return False
+        def has_cycle(node, tracker, visited) -> bool:
+            tracker[node] = True
+            visited[node] = True
             
+            for next_course in ticket_dict[node]:
+                if next_course not in visited and has_cycle(next_course, tracker, visited):
+                    return True
+                elif next_course in tracker:
+                    return True
+            tracker.pop(node)
+            return False
+            
+        
+        for i in range(numCourses):
+            tracker = {}
+            if i not in visited and has_cycle(i, tracker, visited):
+                return False
         return True
