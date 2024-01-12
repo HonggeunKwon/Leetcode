@@ -8,7 +8,7 @@ class Solution:
     def searchBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
         def dfs(node: TreeNode):
             if not node or not node.val:
-                return
+                return None
             
             if node.val < val:
                 return dfs(node.right)
