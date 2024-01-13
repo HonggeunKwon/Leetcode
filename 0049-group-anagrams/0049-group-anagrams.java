@@ -1,23 +1,23 @@
+import java.util.*;
+
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        Map<String, List<String>> map = new HashMap<>();
+        List<List<String>> answer = new ArrayList<>();
         
-        for (String str : strs) {
+        Map<String, List<String> > wordMap = new HashMap<>();
+        for (String str: strs) {
             char[] chars = str.toCharArray();
             Arrays.sort(chars);
-            
-            String key = String.valueOf(chars);
-            
-            if(!map.containsKey(key))  {
-                map.put(key, new ArrayList<>());
+            String sortedWord = String.valueOf(chars);
+            if (!wordMap.containsKey(sortedWord)) {
+                wordMap.put(sortedWord, new ArrayList<>());
             }
-            map.get(key).add(str);
+            
+            wordMap.get(sortedWord).add(str);
         }
         
-        List<List<String> > answer = new ArrayList<>();
-        
-        for(String key : map.keySet()) {
-            answer.add(map.get(key));
+        for (String key : wordMap.keySet()) {
+            answer.add(wordMap.get(key));
         }
         
         return answer;
