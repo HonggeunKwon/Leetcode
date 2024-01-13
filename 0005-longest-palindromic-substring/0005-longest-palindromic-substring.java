@@ -1,33 +1,39 @@
 class Solution {
+    private int wordLength;
+    
     public String longestPalindrome(String s) {
-        int s_len = s.length();
+        int maxLength = 0;
+        String answer = null;
+        this.wordLength = s.length();
+        if (wordLength == 1) {
+            return s;
+        }
         
-        String result = "";
-        
-        if (s_len < 2) return s;
-        
-        for (int i = 0; i < s_len - 1; i++) {
-            String even = expand(s, i, i + 1);
-            String odd = expand(s, i, i + 2);
+        for(int i = 0; i < wordLength - 1; i++) {
+            String even = getLongestPalindrom(s, i, i + 1);
+            String odd = getLongestPalindrom(s, i, i + 2);
             
-            if (result.length() < even.length()) {
-                result = even;
+            if (maxLength < even.length()) {
+                maxLength = even.length();
+                answer = even;
             }
-            if (result.length() < odd.length()) {
-                result = odd;
+            
+            if (maxLength < odd.length()) {
+                maxLength = odd.length();
+                answer = odd;
             }
         }
         
-        return result;
+        return answer;
     }
     
-    private static String expand(String s, int left, int right) {
-        int sLen = s.length();
-        while(left >= 0 && right < sLen && s.charAt(left) == s.charAt(right)) {
+    private String getLongestPalindrom(String word, int left, int right) {
+        
+        while (left >= 0 && right < word.length() && word.charAt(left) == word.charAt(right)) {
             left--;
             right++;
         }
         
-        return s.substring(left + 1, right);
+        return word.substring(left + 1, right);
     }
 }
