@@ -1,20 +1,21 @@
+import java.util.*;
+
 class Solution {
     public int numJewelsInStones(String jewels, String stones) {
-        Map<Character, Integer> map = new HashMap<>();
+        Set<Character> jewelSet = new HashSet<>();
         
-        int stoenLength = stones.length();
-        
-        for (int i = 0; i < stoenLength; i++) {
-            char c = stones.charAt(i);
-            map.put(c, map.getOrDefault(c, 0) + 1);
+        for (char c: jewels.toCharArray()) {
+            jewelSet.add(c);
         }
-        
         int answer = 0;
         
-        for (char c : jewels.toCharArray()) {
-            answer += map.getOrDefault(c, 0);
+        for (char s : stones.toCharArray()) {
+            if (jewelSet.contains(s)) {
+                answer += 1;
+            }
         }
         
         return answer;
+        
     }
 }
