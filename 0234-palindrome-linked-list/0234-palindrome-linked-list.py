@@ -10,11 +10,12 @@ class Solution:
         
         deq = collections.deque()
         
-        while head is not None:
+        while head:
             deq.append(head.val)
             head = head.next
-        
+    
         while len(deq) > 1:
-            if deq.pop() != deq.popleft():
+            if deq.popleft() != deq.pop():
                 return False
+        
         return True
