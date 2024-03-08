@@ -8,6 +8,7 @@ class Solution:
         root = head = ListNode(0)
         
         carry = 0
+        
         while l1 or l2 or carry:
             sum = 0
             
@@ -18,7 +19,7 @@ class Solution:
                 sum += l2.val
                 l2 = l2.next
             
-            carry, val = divmod(sum + carry, 10)
+            carry, val = divmod(sum+carry, 10)
             head.next = ListNode(val)
             head = head.next
         return root.next
