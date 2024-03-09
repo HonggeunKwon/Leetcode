@@ -1,17 +1,17 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        substring_map = collections.defaultdict(int)
+        memo = collections.defaultdict(int)
         
-        lt, rt = 0, 0
-        s_len = len(s)
+        lt = 0
         answer = 0
         
-        while lt <= rt and rt < s_len:
-            substring_map[s[rt]] += 1
-            while substring_map[s[rt]] > 1:
-                substring_map[s[lt]] -= 1
+        for rt in range(len(s)):
+            memo[s[rt]] += 1
+            
+            while memo[s[rt]] > 1:
+                memo[s[lt]] -= 1
                 lt += 1
+            
             answer = max(answer, rt - lt + 1)
-            rt += 1
         
         return answer
