@@ -1,26 +1,27 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        courses = collections.defaultdict(list)
+        graph = collections.defaultdict(list)
         
-        for next_course, pre_course in prerequisites:
-            courses[pre_course].append(next_course)
-            
+        for a, b in prerequisites:
+            graph[b].append(a)
+        
         visited = {}
         
-        def is_cycle(node: int, tracker, visited) -> bool:
-            tracker[node] = True
+        def is_cycle(node, visited, tracker):            
             visited[node] = True
+            tracker[node] = True
             
-            for next_course in courses[node]:
-                if next_course not in visited and is_cycle(next_course, tracker, visited):
+            for next_node in graph[node]:
+                if next_node not in visited and is_cycle(next_node, visited, tracker):
                     return True
-                elif next_course in tracker:
+                elif next_node in tracker:
                     return True
-            tracker.pop(node)
+            tracker.pop(node)            
             return False
+            
         
         for i in range(numCourses):
-            if i not in visited and is_cycle(i, {}, visited):
+            if i not in visited and is_cycle(i, visited, {}):
                 return False
         
         return True
