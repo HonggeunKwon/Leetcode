@@ -19,6 +19,5 @@ class Solution:
             
             if result.next:
                 heapq.heappush(heap, (result.next.val, node[1], result.next))
-            
         
         return root.next
